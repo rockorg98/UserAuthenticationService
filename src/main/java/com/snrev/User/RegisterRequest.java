@@ -4,15 +4,15 @@ import org.springframework.stereotype.Component;
 
 public class RegisterRequest {
     private String name;
-    private String id;
+    private Long id;
     private String password;
     private String email;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -32,7 +32,7 @@ public class RegisterRequest {
     }
 
     public String getEmail() {
-        return password;
+        return email;
     }
 
     public void setEmail(String mail) {

@@ -36,6 +36,7 @@ public class AuthController {
         }
         else
         {
+            System.out.println("Invalid credentials");
             return ResponseEntity.badRequest().build();
         }
     }
