@@ -20,27 +20,34 @@ public class AuthService {
         this.passwordEncoder = pEncoder;
     }
 
-    public User register(RegisterRequest request)
+    public AuthResponse register(RegisterRequest request)
     {
-        	User user = new User();
-            user.setEmail(request.getEmail());
-            user.setName(request.getName());
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
-            return loginRepository.save(user);
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setName(request.getName());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        User savedUser = loginRepository.save(user);
+
+        if(savedUser!=null)
+        {
+            return new AuthResponse("User registered successfully", savedUser.getEmail());
+        }
+        else {
+            return new AuthResponse("User registration failed", null);
+        }
     }
 
-    public User login(LoginRequest request)
+    public AuthResponse login(LoginRequest request)
     {
         Optional<User> user = loginRepository.findByEmail(request.getEmail());
 
         if(user.isPresent() && passwordEncoder.matches(request.getPassword(), user.get().getPassword()))
         {
-            return user.get();
+            return new AuthResponse("Login Successfull", user.get().getEmail());
         }
         else
         {
-            System.out.println("Can not find by email");
-            return null;
+            return  new AuthResponse("Login Failed", null);
         }
     }
 }

@@ -16,8 +16,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        User obj =  authService.register(request);
-        if(obj != null)
+        AuthResponse obj =  authService.register(request);
+        if(obj.getMessage() == "User registered successfully")
         {
             return ResponseEntity.ok(obj);
         }
@@ -29,8 +29,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        User obj =  authService.login(request);
-        if(obj != null)
+        AuthResponse obj =  authService.login(request);
+        if(obj.getMessage() == "Login Successfull")
         {
             return ResponseEntity.ok(obj);
         }
