@@ -1,10 +1,17 @@
 package com.snrev.User;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
 public class LoginRequest {
     private Long id;
+
+    @NotBlank
     private String password;
+
+    @NotBlank
+    @Email
     private String email;
 
     public Long getId() {

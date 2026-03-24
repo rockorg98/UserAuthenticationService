@@ -1,11 +1,22 @@
 package com.snrev.User;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 
 public class RegisterRequest {
+
+    @NotBlank
     private String name;
+
     private Long id;
+
+    @NotBlank
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
+
+    @Email(message = "Email should be valid")
     private String email;
 
     public Long getId() {
@@ -23,6 +34,7 @@ public class RegisterRequest {
         this.name = name;
     }
 
+
     public String getPassword() {
         return password;
     }
@@ -30,6 +42,7 @@ public class RegisterRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public String getEmail() {
         return email;

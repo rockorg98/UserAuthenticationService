@@ -22,6 +22,10 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest request)
     {
+        if(loginRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+        
         User user = new User();
         user.setEmail(request.getEmail());
         user.setName(request.getName());
@@ -33,7 +37,7 @@ public class AuthService {
             return new AuthResponse("User registered successfully", savedUser.getEmail());
         }
         else {
-            return new AuthResponse("User registration failed", null);
+            throw new RuntimeException("User registration failed");
         }
     }
 
@@ -41,13 +45,14 @@ public class AuthService {
     {
         Optional<User> user = loginRepository.findByEmail(request.getEmail());
 
-        if(user.isPresent() && passwordEncoder.matches(request.getPassword(), user.get().getPassword()))
-        {
-            return new AuthResponse("Login Successfull", user.get().getEmail());
+        if(user.isEmpty()) {
+            throw new IllegalArgumentException("User not found with email: " + request.getEmail());
         }
-        else
-        {
-            return  new AuthResponse("Login Failed", null);
+        
+        if(!passwordEncoder.matches(request.getPassword(), user.get().getPassword())) {
+            throw new IllegalArgumentException("Invalid credentials");
         }
+
+        return new AuthResponse("Login Successfull", user.get().getEmail());
     }
 }

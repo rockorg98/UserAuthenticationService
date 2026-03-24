@@ -1,8 +1,12 @@
 package com.snrev.User;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
+
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -15,7 +19,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
         AuthResponse obj =  authService.register(request);
         if(obj.getMessage() == "User registered successfully")
         {
@@ -28,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse obj =  authService.login(request);
         if(obj.getMessage() == "Login Successfull")
         {
