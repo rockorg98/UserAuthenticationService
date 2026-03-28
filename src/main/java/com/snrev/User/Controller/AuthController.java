@@ -1,5 +1,10 @@
-package com.snrev.User;
+package com.snrev.User.Controller;
 
+import com.snrev.User.DTO.RegisterResponse;
+import com.snrev.User.DTO.LoginResponse;
+import com.snrev.User.Service.AuthService;
+import com.snrev.User.DTO.LoginRequest;
+import com.snrev.User.DTO.RegisterRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +25,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
-        AuthResponse obj =  authService.register(request);
+        RegisterResponse obj =  authService.register(request);
         if(obj.getMessage() == "User registered successfully")
         {
             return ResponseEntity.ok(obj);
@@ -33,7 +38,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
-        AuthResponse obj =  authService.login(request);
+        LoginResponse obj =  authService.login(request);
         if(obj.getMessage() == "Login Successfull")
         {
             return ResponseEntity.ok(obj);

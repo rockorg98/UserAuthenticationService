@@ -1,5 +1,6 @@
-package com.snrev.User;
+package com.snrev.User.Exception;
 
+import com.snrev.User.DTO.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;

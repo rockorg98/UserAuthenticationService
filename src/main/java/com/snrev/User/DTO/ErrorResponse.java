@@ -1,4 +1,4 @@
-package com.snrev.User;
+package com.snrev.User.DTO;
 
 public class ErrorResponse {
     private String message;

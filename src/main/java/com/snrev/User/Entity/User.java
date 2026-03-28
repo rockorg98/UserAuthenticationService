@@ -1,4 +1,4 @@
-package com.snrev.User;
+package com.snrev.User.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,10 +1,10 @@
-package com.snrev.User;
+package com.snrev.User.DTO;
 
-public class AuthResponse {
+public class RegisterResponse {
     private String message;
     private String email;
 
-    public AuthResponse(String message, String email) {
+    public RegisterResponse(String message, String email) {
         this.message = message;
         this.email = email;
     }

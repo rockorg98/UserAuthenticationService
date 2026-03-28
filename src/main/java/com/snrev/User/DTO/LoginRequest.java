@@ -1,8 +1,7 @@
-package com.snrev.User;
+package com.snrev.User.DTO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.stereotype.Component;
 
 public class LoginRequest {
     private Long id;
