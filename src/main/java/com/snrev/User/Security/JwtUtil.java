@@ -11,7 +11,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
-    private String secretKey = "#ell0@mlholdthedoor!!234#ell0@mlholdthedoor!!234#ell0@mlholdthedoor!!234";
+    private String secretKey = "key_for_SnRev_key_for_SnRev_key_for_SnRev_key_for_SnRev";
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
     }

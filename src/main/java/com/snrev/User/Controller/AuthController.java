@@ -20,6 +20,7 @@ public class AuthController {
     private AuthService authService;
     @GetMapping("/test")
     public ResponseEntity<?> test() {
+        System.out.println("🔥 MY API Hit 🔥");
         return ResponseEntity.ok("test");
     }
 
