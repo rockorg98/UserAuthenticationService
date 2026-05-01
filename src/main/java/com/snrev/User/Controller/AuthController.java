@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 
 
 @RestController
-@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -24,7 +23,7 @@ public class AuthController {
         return ResponseEntity.ok("test");
     }
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
         System.out.println("Reached Register");
         RegisterResponse obj =  authService.register(request);
@@ -38,7 +37,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
         LoginResponse obj =  authService.login(request);
         if(obj.getMessage() == "Login Successfull")
