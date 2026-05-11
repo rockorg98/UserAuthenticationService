@@ -9,7 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 
 
 @RestController
@@ -18,6 +18,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
     @GetMapping("/test")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> test() {
         System.out.println("🔥 MY API Hit 🔥");
         return ResponseEntity.ok("test");

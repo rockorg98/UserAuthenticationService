@@ -1,11 +1,15 @@
 package com.snrev.User.Service;
 
+import java.util.Set;
+import java.util.HashSet;
 import com.snrev.User.DTO.RegisterResponse;
 import com.snrev.User.DTO.LoginResponse;
 import com.snrev.User.Entity.User;
+import com.snrev.User.Entity.Role;
 import com.snrev.User.DTO.LoginRequest;
 import com.snrev.User.DTO.RegisterRequest;
 import com.snrev.User.Repository.LoginRepository;
+import com.snrev.User.Repository.RoleRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.stereotype.Service;
@@ -17,17 +21,19 @@ import com.snrev.User.Security.JwtUtil;
 @Service
 public class AuthService {
     private final LoginRepository loginRepository;
+    private final RoleRepository roleRepository;
     private final CustomUserDetailsService userDetailsService;
     private final BCryptPasswordEncoder passwordEncoder;
     private AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
-    public AuthService(LoginRepository repository, BCryptPasswordEncoder pEncoder,
+    public AuthService(LoginRepository repository,RoleRepository roleRepository ,BCryptPasswordEncoder pEncoder,
                        CustomUserDetailsService userDetailsService,
                        AuthenticationManager authenticationManager,
                        JwtUtil jwtUtil)
     {
         this.loginRepository = repository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = pEncoder;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
@@ -44,6 +50,18 @@ public class AuthService {
         user.setEmail(request.getEmail());
         user.setName(request.getName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        Set<String> sRoles = request.getRoles();
+        Set<Role> userRoles = new HashSet<>();
+        for(String element :sRoles)
+        {
+            //covert element to enum
+            Role.ERole eRole = Role.ERole.valueOf(element);
+            Role role = roleRepository.findByName(eRole).get();
+            userRoles.add(role);
+        }
+
+        user.setRoles(userRoles);
         User savedUser = loginRepository.save(user);
 
         if(savedUser!=null)

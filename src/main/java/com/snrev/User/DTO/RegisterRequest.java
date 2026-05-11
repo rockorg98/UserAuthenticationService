@@ -3,6 +3,9 @@ package com.snrev.User.DTO;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.Set;
+import com.snrev.User.Entity.Role;
+import jakarta.validation.constraints.NotEmpty;
 
 public class RegisterRequest {
 
@@ -17,6 +20,9 @@ public class RegisterRequest {
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;
+
+    @NotEmpty(message = "Atleast one role required")
+    private Set<String> roles;
 
     public String getName() {
         return name;
@@ -39,5 +45,13 @@ public class RegisterRequest {
     }
     public void setEmail(String mail) {
         this.email = mail;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 }
